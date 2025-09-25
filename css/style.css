@@ -1,0 +1,44 @@
+/* style.css - complement to Tailwind for animations & fine-tuning */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reveal (fade-in + slide) used by JS IntersectionObserver */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Slight card shadow */
+.shadow-lg {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
+}
+
+/* Make images look slightly inset on light bg */
+img {
+  image-rendering: auto;
+}
+
+/* Mobile nav show/hide will be controlled with JS (class toggled) */
+#mobileNav.show {
+  display: block !important;
+}
+
+/* Small screens adjustments */
+@media (max-width: 640px) {
+  header section {
+    min-height: 70vh;
+  }
+
+  .reveal {
+    transition-duration: 500ms;
+  }
+}
