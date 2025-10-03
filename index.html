@@ -32,7 +32,7 @@
 <body class="antialiased text-black bg-white">
 
   <!-- NAV -->
-  <nav class="fixed w-full z-40 bg-white/80 backdrop-blur-md">
+  <nav class="fixed w-full z-40 bg-white/80 backdrop-blur-md transition-all duration-300 transform">
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex items-center justify-between py-4">
         <a href="#hero" class="flex items-center gap-3">
@@ -66,11 +66,12 @@
   </nav>
 
   <!-- HERO -->
-  <header id="hero" class="pt-24">
-    <section class="min-h-[78vh] bg-cover bg-center flex items-center"
+  <header id="hero" class="min-h-screen">
+    <section class="min-h-screen bg-cover bg-center flex items-center"
       style="background-image: url('img/flores-de-fundo.jpg')">
-      <div class="max-w-6xl mx-auto px-6 w-full">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-12">
+      <div class="max-w-6xl mx-auto px-6 w-full pt-16 md:pt-0"> <!-- Reduzido de pt-20 para pt-16 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-4">
+          <!-- Adicionado py-4 para espaçamento vertical -->
           <!-- left text -->
           <div
             class="bg-white/60 backdrop-blur-sm p-8 rounded-lg shadow-lg reveal transform transition-transform duration-300 hover:scale-105">
@@ -104,7 +105,7 @@
   <section id="servicos" class="py-20 scroll-mt-20">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-4xl font-bold text-center text-primaryPink mb-10 reveal">Serviços Prestados</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div class="flex flex-col-reverse md:grid md:grid-cols-2 gap-8 items-start">
         <div class="reveal">
           <p class="mb-4">Alguns tratamentos realizados em <strong class="text-primaryPink">podologia</strong> e <strong
               class="text-primaryPink">quirodatilogia</strong>:</p>
@@ -115,7 +116,7 @@
             <li>Onicomicose (micose de unha)</li>
             <li>Verruga plantar (olho de peixe)</li>
             <li>Calos e calosidades</li>
-            <li>Rachaduras e fissuras</li>
+            <li>Rachaduras fissuras</li>
             <li>Órtese</li>
             <li>Corte técnico</li>
             <li>Tunga (Bicho de pé)</li>
@@ -348,19 +349,23 @@
     updateCarousel();
   </script>
   <script>
-    // Add this after your existing script tags
     document.addEventListener('DOMContentLoaded', function () {
-      const navLogo = document.querySelector('.nav-logo');
+      const nav = document.querySelector('nav');
       const heroSection = document.querySelector('#hero');
 
+      // Observer para a seção hero
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          // When hero is visible, hide logo. When not visible, show logo
-          navLogo.style.opacity = entry.isIntersecting ? '0' : '1';
-          navLogo.style.transition = 'opacity 0.3s';
+          if (entry.isIntersecting) {
+            // Se o hero está visível, esconde o nav
+            nav.style.transform = 'translateY(-100%)';
+          } else {
+            // Se o hero não está visível, mostra o nav
+            nav.style.transform = 'translateY(0)';
+          }
         });
       }, {
-        threshold: 0.1 // Trigger when at least 10% of hero section is visible
+        threshold: 0.1 // Dispara quando 10% da seção está visível
       });
 
       observer.observe(heroSection);
@@ -404,6 +409,4 @@
   </style>
 </body>
 
-
 </html>
-
